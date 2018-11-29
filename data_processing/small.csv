@@ -1,0 +1,7 @@
+content_id,content,subject,sentiment_value,sentiment_word
+1,"this car is great","all",1,"great"
+2,"the car sucks","all",-1,"sucks"
+3,"I love this car but it's really expensive","all",1,"love"
+3,"I love this car but it's really expensive","price",-1,"expensive"
+4,"I think that's a normal car","all",0,"normal"
+5,"haha","all",0,
