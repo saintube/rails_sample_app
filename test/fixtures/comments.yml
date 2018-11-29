@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content_id: 1
+  content: MyText
+  subject_value: 1
+  sentiment_value: 1
+
+two:
+  content_id: 1
+  content: MyText
+  subject_value: 1
+  sentiment_value: 1
