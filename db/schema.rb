@@ -10,15 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181129115108) do
+ActiveRecord::Schema.define(version: 20181210065324) do
+
+  create_table "cars", force: :cascade do |t|
+    t.string "carname"
+    t.text "description"
+    t.string "subjects"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["carname"], name: "index_cars_on_carname", unique: true
+  end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "content_id"
     t.text "content"
-    t.integer "subject_value"
+    t.integer "subjects_value"
     t.integer "sentiment_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "car_id"
+    t.index ["car_id"], name: "index_comments_on_car_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -27,6 +40,7 @@ ActiveRecord::Schema.define(version: 20181129115108) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

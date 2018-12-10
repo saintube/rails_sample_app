@@ -1,12 +1,15 @@
 class CreateComments < ActiveRecord::Migration[5.1]
   def change
+    #drop_table :comments
     create_table :comments do |t|
-      t.integer :content_id
-      t.text :content
-      t.integer :subject_value
-      t.integer :sentiment_value
 
+      t.text :content
+      t.integer :subjects_value
+      t.integer :sentiment_value
       t.timestamps
+      t.belongs_to :user, index: true
+      t.belongs_to :car, index: true
+
     end
   end
 end
