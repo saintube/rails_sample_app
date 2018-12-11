@@ -15,7 +15,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", contact_path
     assert_select "a[href=?]", login_path
     get contact_path
-    assert_select "title", full_title("Contact")
+    assert_select "title", full_title("联系我们")
   end
 
   test "layout links after login" do
