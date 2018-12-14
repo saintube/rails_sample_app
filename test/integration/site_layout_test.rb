@@ -14,6 +14,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", about_path
     assert_select "a[href=?]", contact_path
     assert_select "a[href=?]", login_path
+    assert_select "a[href=?]", signup_path
     get contact_path
     assert_select "title", full_title("联系我们")
   end
@@ -27,6 +28,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", about_path
     assert_select "a[href=?]", contact_path
     assert_select "a[href=?]", logout_path
+    assert_select "a[href=?]", signup_path, count: 0
   end
 
 end

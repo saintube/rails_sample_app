@@ -1,11 +1,29 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+regal_comment:
+  content: "This car is great!"
+  created_at: <%= 10.minutes.ago %>
+  sentiment_value: 80
+  user: michael
+  car: regal
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+bad:
+  content: "It is a horrible car"
+  created_at: <%= 2.hours.ago %>
+  sentiment_value: 20
+  user: michael
+  car: regal
+  
+most_recent:
+  content: "This is a most recent comment"
+  created_at: <%= Time.zone.now %>
+  sentiment_value: 50
+  user: michael
+  car: regal
+  
+<% 20.times do |n| %>
+comment_<%= n %>:
+  content: <%= Faker::Lorem.sentence(5) %>
+  created_at: <%= 10.days.ago %>
+  sentiment_value: 60
+  user: michael
+  car: b520i
+<% end %>

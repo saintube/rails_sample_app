@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181210065324) do
+ActiveRecord::Schema.define(version: 20181212104339) do
 
   create_table "cars", force: :cascade do |t|
     t.string "carname"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20181210065324) do
     t.integer "user_id"
     t.integer "car_id"
     t.index ["car_id"], name: "index_comments_on_car_id"
+    t.index ["user_id", "created_at"], name: "index_comments_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
