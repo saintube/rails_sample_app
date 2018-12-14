@@ -1,0 +1,22 @@
+<%= form_for(@car, url: yield(:url_text)) do |f| %>
+<% if @car.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      The form contains <%= pluralize(@car.errors.count, "error") %>.
+    </div>
+    <ul>
+    <% @car.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+  <%= f.label "车型名称" %>
+  <%= f.text_field :carname, class: 'form-control' %>
+
+  <%= f.label "车型描述" %>
+  <%= f.text_field :description, class: 'form-control' %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>

@@ -1,3 +1,16 @@
+<% if false %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <%= render 'shared/user_info' %>
+      </section>
+      <section class="comment_form">
+        <%= render 'shared/comment_form' %>
+      </section>
+    </aside>
+  </div>
+<% else %>
+
 <div class="center jumbotron">
   <h1>汽车在线论坛</h1>
 
@@ -6,10 +19,14 @@
     <a href="http://www.railstutorial.org/">Ruby on Rails Tutorial</a>
     开发。
   </h2>
-
-  <%= link_to "立即注册", signup_path, class: "btn btn-lg btn-primary" %>
+  <% if not logged_in? %>
+    <%= link_to "立即注册", signup_path, class: "btn btn-lg btn-primary" %>
+  <% else %>
+    <%= link_to "浏览车评", comments_path, class: "btn btn-lg btn-primary" %>
+  <% end %>
 </div>
 
 <%#= link_to image_tag("rails.png", alt: "Rails logo"),
             'http://rubyonrails.org/' %>
 <%#= image_tag("kitten.jpg", alt: "kitten") %>
+<% end %>

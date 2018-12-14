@@ -3,10 +3,17 @@ require 'test_helper'
 class CommentTest < ActiveSupport::TestCase
   
   def setup
-    @user = User.new(name: "Example User", email: "user@example.com",
-                     password: "foobar", password_confirmation: "foobar")
-    @car = Car.new(carname: "Regal", description: "Buick Regal", subjects: nil, score: 80)
-    @comment = Comment.new(content: "this car is great", subjects_value: nil, sentiment_value: 80, user: @user, car: @car)
+    @user = users(:michael)
+    @car = cars(:regal)
+    @comment = comments(:regal_comment)
+  end
+  
+  test "user id should be present" do
+    assert @user.valid?
+  end
+  
+  test "car id should be present" do
+    assert @car.valid?
   end
   
   test "should be valid" do
@@ -31,6 +38,10 @@ class CommentTest < ActiveSupport::TestCase
   test "content should not be too long" do
     @comment.content = "w" * 65537
     assert_not @comment.valid?
+  end
+
+  test "order should be most recent first" do
+    assert_equal comments(:most_recent), Comment.first
   end
     
 end
