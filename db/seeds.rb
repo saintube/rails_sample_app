@@ -20,3 +20,14 @@ User.create!(name:  "Example User",
                password:              password,
                password_confirmation: password)
 end
+
+Car.create!(carname: "Regal", description: "Buick Regal", score: 80)
+Car.create!(carname: "b520i", description: "BMW 520i", score: 60)
+
+15.times do |n|
+  content = "test comments."
+  car = Car.first
+  user = User.first
+  sentiment_value = 80
+  Comment.create!(content: content, car: car, user: user, sentiment_value: sentiment_value)
+end

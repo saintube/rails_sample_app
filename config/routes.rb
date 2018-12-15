@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   get		'cars/new'
   resources :users
   resources :comments,		only: [:create, :destroy, :index]
+  resources :cars,		only: [:new, :index, :show, :create, :edit, :destroy]
 
 end
