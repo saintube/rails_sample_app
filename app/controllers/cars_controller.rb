@@ -5,6 +5,10 @@ class CarsController < ApplicationController
     @car = Car.new
   end
 
+  def show
+    @car = Car.find(params[:id])
+  end
+
   def create
     @car = current_user.cars.build(car_params)
     if @car.save
