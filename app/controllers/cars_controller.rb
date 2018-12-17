@@ -9,14 +9,22 @@ class CarsController < ApplicationController
     @car = Car.find(params[:id])
   end
 
+  def index
+    @cars = Car.order("score desc").page(params[:page])
+  end
+
   def create
-    @car = current_user.cars.build(car_params)
+    @car = Car.new(car_params)
     if @car.save
       flash[:success] = "车型已创建!"
-      redirected_to root_url
+      redirect_to @car
     else
-      render 'static_pages/home'
+      render 'new'
     end
+  end
+
+  def edit
+    @car = Car.find(params[:id])
   end
 
   def destroy

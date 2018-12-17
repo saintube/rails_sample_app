@@ -1,5 +1,5 @@
 <li id="car-<%= car.id %>">
-  <span class="carname" style="font-weight:bold"><%= car.carname %></span><br>
+  <span class="carname" style="font-weight:bold"><%= link_to car.carname, car %></span><br>
   <span class="description"><%= car.description %></span><br>
   Score: 
   <% if car.score? %>
