@@ -6,8 +6,8 @@
         <li><%= link_to "首页", root_path %></li>
         <li><%= link_to "帮助", help_path %></li>
         <li><%= link_to "车评", comments_path %></li>
+        <li><%= link_to "汽车", cars_path %></li>
         <% if logged_in? %>
-          <li><%= link_to "所有用户", users_path %></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               账户 <b class="caret"></b>
@@ -16,12 +16,14 @@
               <li><%= link_to "个人资料", current_user %></li>
               <li><%= link_to "更新设置", edit_user_path(current_user) %></li>
               <li class="divider"></li>
-              <li><%= link_to "添加汽车", cars_new_path %></li>
+              <li><%= link_to "所有用户", users_path %></li>
+              <li><%= link_to "添加汽车", new_car_path %></li>
               <li><%= link_to "发布车评", '#' %></li>
               <li class="divider"></li>
-              <li>
-                <%= link_to "登出", logout_path, method: :delete %>
-              </li>
+              <% if current_user.admin? %>
+              <li><%= link_to "后台管理", rails_admin_path %>
+              <% end %>
+              <li><%= link_to "登出", logout_path, method: :delete %></li>
             </ul>
           </li>
         <% else %>
