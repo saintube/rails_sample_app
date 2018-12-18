@@ -1,6 +1,6 @@
 class Car < ApplicationRecord
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_many :users, through: :comments
 
   VALID_CARNAME_REGEX = /\A[a-zA-Z]+[a-zA-Z\d]+/

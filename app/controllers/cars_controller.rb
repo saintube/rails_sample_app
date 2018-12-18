@@ -1,5 +1,6 @@
 class CarsController < ApplicationController
-  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :logged_in_user, only: [:create, :edit, :update, :destroy]
+  before_action :admin_user, only: [:edit, :update, :destroy]
 
   def new
     @car = Car.new
@@ -27,7 +28,20 @@ class CarsController < ApplicationController
     @car = Car.find(params[:id])
   end
 
+  def update
+    @car = Car.find(params[:id])
+    if @car.update_attributes(car_params)
+      flash[:success] = "车型已更新"
+      redirect_to @car
+    else
+      render 'edit'
+    end
+  end
+
   def destroy
+    Car.find(params[:id]).destroy
+    flash[:success] = "车型已删除"
+    redirect_to cars_url
   end
 
   private

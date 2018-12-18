@@ -14,4 +14,15 @@ class ApplicationController < ActionController::Base
         redirect_to login_url
       end
     end
+
+    # 确保是正确的用户
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
+    end
+
+    # 确保是管理员
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
+    end
 end

@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   post		'/cars/new',	to: 'cars#create'
   resources :users
   resources :comments,		only: [:create, :destroy, :index]
-  resources :cars,		only: [:new, :index, :show, :create, :edit, :destroy]
+  resources :cars,		only: [:new, :index, :show, :create, :edit, :update, :destroy]
 
 end
