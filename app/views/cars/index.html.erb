@@ -1,0 +1,8 @@
+<% provide(:title, '汽车') %>
+<h1>汽车排行榜</h1>
+
+<ul class="cars">
+  <%= render @cars %>
+</ul>
+
+<%= paginate @cars %>
