@@ -3,5 +3,6 @@
   <div class="field">
     <%= f.text_area :content, placeholder: "发布新车评..." %>
   </div>
-  <%= f.submit "Post", class: "btn btn-primary" %>
+  <%= f.hidden_field :car_id, :value => @car.id %>
+  <%= f.submit "发布", class: "btn btn-primary" %>
 <% end %>
