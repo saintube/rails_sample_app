@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
+  before_action :correct_user, only: :destroy
 
   def create
     @comment = current_user.comments.build(comment_params)
@@ -14,6 +15,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @comment.destroy
+    flash[:success] = "车评已删除"
+    redirect_to request.referrer || comments_url
   end
 
   def index
@@ -24,5 +28,10 @@ class CommentsController < ApplicationController
 
     def comment_params
       params.require(:comment).permit(:content, :car_id)
+    end
+
+    def correct_user
+      @comment = current_user.comments.find_by(id: params[:id])
+      redirect_to comments_url if @comment.nil?
     end
 end
