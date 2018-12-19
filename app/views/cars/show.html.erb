@@ -15,7 +15,7 @@
     </section>
   </aside>
 <% if logged_in? %>
-  <div class="col-md-8">
+  <div class="col-md-4">
     <h3>
       <%= current_user.name %>:
     </h3>
@@ -24,4 +24,13 @@
     </section>
   </div>
 <% end %>
+  <div class="col-md-8">
+    <% if @car.comments.any? %>
+      <h3>车评 (<%= @car.comments.count %>)</h3>
+      <ol class="comments">
+        <%= render @comments %>
+      </ol>
+      <%= paginate @comments %>
+    <% end %>
+  </div>
 </div>
