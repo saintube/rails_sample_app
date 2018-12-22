@@ -9,9 +9,28 @@
         <%= @car.description %>
       </h4>
       <% if logged_in? && current_user.admin? %>
-      <%= link_to "编辑车型", edit_car_path(@car.id) %><br>
-      <%= link_to "删除车型", @car, method: :delete, data: { confirm: "确定删除?" } %>
-      <% end %><br>
+        <%= link_to "编辑车型", edit_car_path(@car.id) %><br>
+        <%= link_to "删除车型", @car, method: :delete, data: { confirm: "确定删除?" } %><br>
+      <% end %>
     </section>
   </aside>
+<% if logged_in? %>
+  <div class="col-md-4">
+    <h3>
+      <%= current_user.name %>:
+    </h3>
+    <section class="comment_form">
+      <%= render 'shared/comment_form' %>
+    </section>
+  </div>
+<% end %>
+  <div class="col-md-8">
+    <% if @car.comments.any? %>
+      <h3>车评 (<%= @car.comments.count %>)</h3>
+      <ol class="comments">
+        <%= render @comments %>
+      </ol>
+      <%= paginate @comments %>
+    <% end %>
+  </div>
 </div>

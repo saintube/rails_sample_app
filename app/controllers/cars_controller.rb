@@ -8,6 +8,8 @@ class CarsController < ApplicationController
 
   def show
     @car = Car.find(params[:id])
+    @comment = current_user.comments.build if logged_in?
+    @comments = @car.comments.page(params[:page]).per(5)
   end
 
   def index
