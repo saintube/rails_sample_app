@@ -23,11 +23,21 @@ end
 
 Car.create!(carname: "Regal", description: "Buick Regal", score: 80)
 Car.create!(carname: "b520i", description: "BMW 520i", score: 60)
+Car.create!(carname: "Verano", description: "Buick Verano")
+Car.create!(carname: "Tiguan", description: "Volkswagen Tiguan", score: 70)
 
 15.times do |n|
   content = "test comments."
   car = Car.first
   user = User.first
   sentiment_value = 80
+  Comment.create!(content: content, car: car, user: user, sentiment_value: sentiment_value)
+end
+
+10.times do |n|
+  content = "others' test comments."
+  car = Car.last
+  user = User.last
+  sentiment_value = 50
   Comment.create!(content: content, car: car, user: user, sentiment_value: sentiment_value)
 end

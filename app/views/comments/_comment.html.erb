@@ -3,8 +3,8 @@
   <span class="user"><%= link_to comment.user.name, comment.user %>:</span>
   <span class="car" style="font-weight:bold"><%= comment.car.carname %></span>
   <span class="content"><%= comment.content %><br>
-  <% if comment.subjects_value != nil %>
-  Subjects: <%= comment.subjects_value %>
+  <% if comment.sentiment_value != nil %>
+  Sentiment value: <%= comment.sentiment_value %>
   <% end %>
   </span>
   <span class="timestamp">
