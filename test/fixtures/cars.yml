@@ -1,11 +1,18 @@
 regal:
   carname: "Regal"
   description: "Buick Regal"
-  subjects: 80
   score: 80
   
 b520i:
   carname: "b520i"
   description: "BMW 520i"
-  subjects: 60
   score: 60
+
+tiguan:
+  carname: "Tiguan"
+  description: "Volkswagen Tiguan"
+  score: 70
+
+verano:
+  carname: "Verano"
+  description: "Buick Verano"

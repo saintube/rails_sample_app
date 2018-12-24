@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181212104339) do
+ActiveRecord::Schema.define(version: 20181223030400) do
 
   create_table "cars", force: :cascade do |t|
     t.string "carname"
@@ -24,12 +24,21 @@ ActiveRecord::Schema.define(version: 20181212104339) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
-    t.integer "subjects_value"
     t.integer "sentiment_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "car_id"
+    t.integer "power"
+    t.integer "price"
+    t.integer "interior"
+    t.integer "configure"
+    t.integer "safety"
+    t.integer "appearance"
+    t.integer "control"
+    t.integer "consumption"
+    t.integer "space"
+    t.integer "comfort"
     t.index ["car_id"], name: "index_comments_on_car_id"
     t.index ["user_id", "created_at"], name: "index_comments_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_comments_on_user_id"
