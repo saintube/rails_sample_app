@@ -66,7 +66,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "associated comments should be destroyed" do
     @user.save
-    @car = Car.new(carname: "Regal", description: "Buick Regal", subjects: nil, score: 80)
+    @car = Car.new(carname: "Regal", description: "Buick Regal", score: 80)
     @car.save
     @user.comments.create!(content: "this car is great", sentiment_value: 80, car: @car)
     assert_difference 'Comment.count', -1 do

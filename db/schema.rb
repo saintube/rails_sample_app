@@ -10,15 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181223030400) do
+ActiveRecord::Schema.define(version: 20181224022403) do
 
   create_table "cars", force: :cascade do |t|
     t.string "carname"
     t.text "description"
-    t.string "subjects"
     t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "power"
+    t.integer "price"
+    t.integer "interior"
+    t.integer "configure"
+    t.integer "safety"
+    t.integer "appearance"
+    t.integer "control"
+    t.integer "consumption"
+    t.integer "space"
+    t.integer "comfort"
     t.index ["carname"], name: "index_cars_on_carname", unique: true
   end
 
