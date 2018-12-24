@@ -18,6 +18,7 @@ class CarsController < ApplicationController
 
   def create
     @car = Car.new(car_params)
+    @car.score = 50
     if @car.save
       flash[:success] = "车型已创建!"
       redirect_to @car
