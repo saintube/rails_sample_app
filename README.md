@@ -3,7 +3,7 @@
 This application is based on
 [*Ruby on Rails Tutorial:
 Learn Web Development with Rails*](http://www.railstutorial.org/)
-by [Michael Hartl](http://www.michaelhartl.com/).
+by [Michael Hartl](http://www.michaelhartl.com/). And the final interpretation is owned by Team-431 from UCAS.
 
 
 ## Getting started
