@@ -5,6 +5,11 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:michael)
+    ApplicationController.class_eval do
+      define_method :verify_rucaptcha? do |captcha|
+        true
+      end
+    end
   end
 
   test "profile display" do

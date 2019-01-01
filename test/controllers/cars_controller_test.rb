@@ -6,6 +6,11 @@ class CarsControllerTest < ActionDispatch::IntegrationTest
     @user = users(:michael)
     @other_user = users(:archer)
     @car = cars(:regal)
+    ApplicationController.class_eval do
+      define_method :verify_rucaptcha? do |captcha|
+        true
+      end
+    end
   end
 
   test "should get new" do

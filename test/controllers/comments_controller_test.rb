@@ -6,6 +6,11 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     @user = users(:michael)
     @car = cars(:regal)
     @comment = comments(:regal_comment)
+    ApplicationController.class_eval do
+      define_method :verify_rucaptcha? do |captcha|
+        true
+      end
+    end
   end
 
   test "should redirect create when not logged in" do

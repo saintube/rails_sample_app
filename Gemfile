@@ -16,6 +16,8 @@ gem 'jbuilder',     '2.7.0'
 gem 'rails_admin', '~>1.3'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
+gem 'rucaptcha'
+#gem 'dalli'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

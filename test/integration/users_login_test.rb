@@ -4,6 +4,11 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:michael)
+    ApplicationController.class_eval do
+      define_method :verify_rucaptcha? do |captcha|
+        true
+      end
+    end
   end
 
   test "login with invalid information" do
