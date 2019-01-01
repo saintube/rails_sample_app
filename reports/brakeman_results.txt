@@ -1,0 +1,48 @@
+
+== Brakeman Report ==
+
+Application Path: /home/ubuntu/workspace/sample_app
+Rails Version: 5.1.6
+Brakeman Version: 4.3.1
+Scan Date: 2019-01-01 01:58:00 +0000
+Duration: 0.725929852 seconds
+Checks Run: BasicAuth, BasicAuthTimingAttack, ContentTag, CreateWith, CrossSiteScripting, DefaultRoutes, Deserialize, DetailedExceptions, DigestDoS, DynamicFinders, EscapeFunction, Evaluation, Execute, FileAccess, FileDisclosure, FilterSkipping, ForgerySetting, HeaderDoS, I18nXSS, JRubyXML, JSONEncoding, JSONParsing, LinkTo, LinkToHref, MailTo, MassAssignment, MimeTypeDoS, ModelAttrAccessible, ModelAttributes, ModelSerialize, NestedAttributes, NestedAttributesBypass, NumberToCurrency, PermitAttributes, QuoteTableName, Redirect, RegexDoS, Render, RenderDoS, RenderInline, ResponseSplitting, RouteDoS, SQL, SQLCVEs, SSLVerify, SafeBufferManipulation, SanitizeMethods, SelectTag, SelectVulnerability, Send, SendFile, SessionManipulation, SessionSettings, SimpleFormat, SingleQuotes, SkipBeforeFilter, StripTags, SymbolDoSCVE, TranslateBug, UnsafeReflection, ValidationRegex, WithoutProtection, XMLDoS, YAMLParsing
+
+== Overview ==
+
+Controllers: 6
+Models: 4
+Templates: 36
+Errors: 0
+Security Warnings: 3
+
+== Warning Types ==
+
+Dynamic Render Path: 2
+Format Validation: 1
+
+== Warnings ==
+
+Confidence: High
+Category: Format Validation
+Check: ValidationRegex
+Message: Insufficient validation for 'carname' using /\A[a-zA-Z]+[a-zA-Z\d]+/. Use \A and \z as anchors
+File: app/models/car.rb
+Line: 10
+
+Confidence: Weak
+Category: Dynamic Render Path
+Check: Render
+Message: Render path contains parameter value
+Code: render(action => Car.find(params[:id]).comments.page(params[:page]).per(5), {})
+File: app/views/cars/show.html.erb
+Line: 31
+
+Confidence: Weak
+Category: Dynamic Render Path
+Check: Render
+Message: Render path contains parameter value
+Code: render(action => User.find(params[:id]).comments.page(params[:page]).per(5), {})
+File: app/views/users/show.html.erb
+Line: 15
+
