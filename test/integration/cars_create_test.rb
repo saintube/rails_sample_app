@@ -2,6 +2,14 @@ require 'test_helper'
 
 class CarsCreateTest < ActionDispatch::IntegrationTest
 
+  def setup
+    ApplicationController.class_eval do
+      define_method :verify_rucaptcha? do |captcha|
+        true
+      end
+    end
+  end
+
   test "invalid car information" do
     log_in_as(users(:michael))
     get new_car_path

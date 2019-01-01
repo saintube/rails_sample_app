@@ -11,6 +11,11 @@
       <%= f.label "密码" %>
       <%= f.password_field :password, class: 'form-control' %>
 
+    <div class="form-group">
+      <%= rucaptcha_input_tag(placeholder: '输入验证码') %>
+      <%= rucaptcha_image_tag(class: 'image-box', alt: 'Captcha') %>
+    </div>
+
       <%= f.submit "登入", class: "btn btn-primary" %>
     <% end %>
 

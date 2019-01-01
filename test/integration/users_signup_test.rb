@@ -2,6 +2,14 @@ require 'test_helper'
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
 
+  def setup
+    ApplicationController.class_eval do
+      define_method :verify_rucaptcha? do |captcha|
+        true
+      end
+    end
+  end
+
   test "invalid signup information" do
     get signup_path
     assert_select 'form[action="/signup"]'

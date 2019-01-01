@@ -4,6 +4,11 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:michael)
+    ApplicationController.class_eval do
+      define_method :verify_rucaptcha? do |captcha|
+        true
+      end
+    end
   end
 
   test "unsucessful edit" do
@@ -15,7 +20,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
                                               password: "foo",
                                               password_confirmation: "bar" } }
     assert_template 'users/edit'
-    assert_select "div.alert", "The form contains 4 errors."
+    assert_select "div.alert", "The form contains 5 errors."
   end
 
   test "successful edit" do

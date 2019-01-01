@@ -13,5 +13,10 @@
   <%= f.label "确认密码" %>
   <%= f.password_field :password_confirmation, class: 'form-control' %>
 
+  <div class="form-group">
+    <%= rucaptcha_input_tag(placeholder: '输入验证码') %>
+    <%= rucaptcha_image_tag(class: 'image-box', alt: 'Captcha') %>
+  </div>
+
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>

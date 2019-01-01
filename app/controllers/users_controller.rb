@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
-    # @users = User.paginate(page: params[:page])
     @users = User.order(:id).page(params[:page])
   end
 
@@ -19,11 +18,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
+    if verify_rucaptcha?(@use) && @user.save
       log_in @user
       flash[:success] = "欢迎来到汽车在线论坛"
       redirect_to user_url(@user)
     else
+      @user.errors.add(:base, t('rucaptcha.invalid'))
       render 'new'
     end
   end
@@ -34,10 +34,11 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
+    if verify_rucaptcha?(@user) && @user.update_attributes(user_params)
       flash[:success] = "个人资料已更新"
       redirect_to @user
     else
+      @user.errors.add(:base, t('rucaptcha.invalid'))
       render 'edit'
     end
   end
