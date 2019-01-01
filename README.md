@@ -42,5 +42,13 @@ If the test suite passes, you'll be ready to run the app in a Cloud9 workspace s
 $ rails server -b $IP -p $PORT
 ```
 
+## Administrator (provided by seeds)
+
+```
+name: example@railstutorial.org
+password: foobar
+```
+
+## More info
 For more information, see the
 [*Ruby on Rails Tutorial* book](http://www.railstutorial.org/book).
