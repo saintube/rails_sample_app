@@ -44,9 +44,9 @@ def solve_data(txtdata):
         data.append(jieba.lcut(item_txt))
     return data
 
-def save_tokenlization_result(data, target, file_path="./data/tags_token_results"):
+def save_tokenlization_result_data(data, file_path="./data/tags_token_results"):
     """
-    3.对提取的数据进行序列化保存
+    3.对提取的data数据进行序列化保存
     :param data:
     :param target:
     :param file_path:
@@ -56,7 +56,14 @@ def save_tokenlization_result(data, target, file_path="./data/tags_token_results
         for x in data:
             f.write(' '.join(x) + '\n')
 
-    with open(file_path+'_tag', 'w') as f:
+def save_tokenlization_result_target(target, idx, file_path="./data/tags_token_results"):
+    """
+    3.对提取的target数据进行序列化保存
+    :param target:
+    :param file_path:
+    :return:
+    """
+    with open(file_path+'_tag'+str(idx), 'w') as f:
         for x in target:
             f.write(x + '\n')
 
