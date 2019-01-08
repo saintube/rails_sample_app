@@ -19,7 +19,6 @@ from sklearn.externals import joblib
 
 def predict(idx):
     data, target = TrainData.load(idx)
-    print(target)
     cls = NaiveBayesian()
     train_data = data[:-1]
     predict_data = data[-1]
