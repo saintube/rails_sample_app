@@ -17,7 +17,7 @@ def save(model, filename=None):
     default_path = './model/train_data.pkl'
     joblib.dump(model, filename if filename else default_path)
 
-def load(filename=None):
+def load(idx,filename=None):
     default_path = './model/train_data.pkl'
-    with open('./data/tags_token_results' + '_tag') as f:
+    with open('./data/tags_token_results' + '_tag'+str(idx)) as f:
         return joblib.load(filename if filename else default_path), list(map(int, f.read().split('\n')[:-1]))
