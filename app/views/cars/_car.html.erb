@@ -1,11 +1,17 @@
-<li id="car-<%= car.id %>">
-  <span class="carname" style="font-weight:bold"><%= link_to car.carname, car %></span><br>
-  <span class="description"><%= car.description %></span><br>
+
+ <tr class="row">
+<td class="col-md-4">
+   <span class="carname" style="font-weight:bold"><%= link_to car.carname, car %></span><br>
+</td>
+<td table table-hover>
+ <span class="description"><%= car.description %></span><br>
+</td>
+<td table table-hover>
   Score: 
   <% if car.score? %>
     <%= car.score %>
   <% else %>
     empty
   <% end %>
-  <br>
-</li>
+  </td>
+    </tr>
