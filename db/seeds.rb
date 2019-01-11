@@ -23,16 +23,16 @@ User.create!(name:  "Example User",
                password_confirmation: password)
 end
 
-Car.create!(carname: "Regal", description: "Buick Regal", score: 80)
-Car.create!(carname: "b520i", description: "BMW 520i", score: 60)
+Car.create!(carname: "Regal", description: "Buick Regal", score: 50)
+Car.create!(carname: "b520i", description: "BMW 520i", score: 50)
 Car.create!(carname: "Verano", description: "Buick Verano")
-Car.create!(carname: "Tiguan", description: "Volkswagen Tiguan", score: 70)
+Car.create!(carname: "Tiguan", description: "Volkswagen Tiguan", score: 50)
 
 15.times do |n|
   content = "test comments."
   car = Car.first
   user = User.first
-  sentiment_value = 80
+  sentiment_value = 50
   Comment.create!(content: content, car: car, user: user, sentiment_value: sentiment_value)
 end
 
@@ -116,6 +116,7 @@ CSV.foreach('data_processing/seeds.csv', headers: true) do |row|
   end
   models.push(formatted_row)
 end
+car_score = 0
 for m in models
   car = Car.last
   user = User.first
@@ -130,6 +131,7 @@ for m in models
     end
   end
   sentiment_value /= sentiment_count
+  car_score += sentiment_value
   Comment.create!(content: m['content'], car: car, user: user, \
                   sentiment_value: sentiment_value, \
                   power: m['power'], price: m['price'], \
@@ -138,3 +140,5 @@ for m in models
                   control: m['control'], consumption: m['consumption'], \
                   space: m['space'], comfort: m['comfort'])
 end
+car_score /= models.length
+Car.last.update_attribute(:score, car_score)
