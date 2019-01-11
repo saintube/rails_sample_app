@@ -1,8 +1,22 @@
 <% provide(:title, '汽车') %>
+<div class="container-fluid">
+    	<div class="panel panel-danger">
+        <div class="panel-heading">
 <h1>汽车排行榜</h1>
-
-<ul class="cars">
+</div>
+<div class="panel panel-danger">
+    <table class="table table-hover">
+        <thead>
+        <tr class="row">
+            <th class="col-md-4">车型</th>
+            <th class="col-md-4">类别</th>
+            <th class="col-md-4">分数</th>
+        </tr>
+        </thead>
+        <tr>
   <%= render @cars %>
-</ul>
-
+</table>
+  </div>
+   </div>
 <%= paginate @cars %>
+ </div>

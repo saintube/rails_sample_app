@@ -1,8 +1,14 @@
 <% provide(:title, '车评') %>
+<div class="container-fluid">
+    	<div class="panel panel-danger">
+        <div class="panel-heading">
 <h1>车评浏览</h1>
-
+   </div>
 <ul class="comments">
+     <div class="panel-body">
   <%= render @comments %>
+    </div>
 </ul>
-
+ </div>
 <%= paginate @comments %>
+	</div>
