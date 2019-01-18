@@ -82,32 +82,36 @@ if __name__ == '__main__':
         Preprocess.save_tokenlization_result_target(label, item)
 
     #content = sys.argv[1]
+    #content表示传递过来的评论内容
     #algorithm_type = sys.argv[2]
+    #algorithm_type表示需要选用算法的id
 
-    while True:
-        inputtxt = input("请输入你的评论：")
-        data, target = Preprocess.read_train_data()
-        inputtxt = inputtxt.strip()
-        data.append(inputtxt)
-        data = Preprocess.solve_data(data)
-        Preprocess.save_tokenlization_result_data(data)
-        Preprocess.vectword()
-      
-        res = []
-        score=[]
-        for item in range(0,10):
-            res_data = predict(item)
-            res.append(res_data)
-            if res_data==1:
-                d,t=Preprocess.read_data(sub[item])
-                d.append(inputtxt)
-                d=Preprocess.solve_data(d)
-                Preprocess.save_tokenlization_result_data(data,'../data/tags_'+sub[item]+'_results')
-                Preprocess.vectword_score('../data/tags_'+sub[item]+'_results','../model/'+sub[item]+'_train_data.pkl')
-                score.append(predict_score(sub[item]))
-            else:
-                score.append(0)
+    inputtxt = input("请输入你的评论：")
+    data, target = Preprocess.read_train_data()
+    inputtxt = inputtxt.strip()
+    data.append(inputtxt)
+    data = Preprocess.solve_data(data)
+    Preprocess.save_tokenlization_result_data(data)
+    Preprocess.vectword()
+
+    res = []
+    score=[]
+    for item in range(0,10):
+        res_data = predict(item)
+        res.append(res_data)
+        if res_data==1:
+            d,t=Preprocess.read_data(sub[item])
+            d.append(inputtxt)
+            d=Preprocess.solve_data(d)
+            Preprocess.save_tokenlization_result_data(data,'../data/tags_'+sub[item]+'_results')
+            Preprocess.vectword_score('../data/tags_'+sub[item]+'_results','../model/'+sub[item]+'_train_data.pkl')
+            score.append(predict_score(sub[item]))
+        else:
+            score.append(0)
+
         print(res)
         print(score)
+        #只有一个数组的输出，这个数组的每个元素代表着一个主题的情感分析结果
+        #输出格式为在控制台打印出每个主题的评分，分别是负向为-1，正向为1，中性为0，无此主题为2
         
         
