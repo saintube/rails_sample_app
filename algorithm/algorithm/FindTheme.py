@@ -20,6 +20,7 @@ from NaiveBayesian import NaiveBayesian
 import numpy as np
 from sklearn.externals import joblib
 from sklearn.feature_extraction import DictVectorizer
+import sys
 
 def predict(idx):
     data, target = TrainData.load(idx)
@@ -39,12 +40,6 @@ def predict_score(sub):
     model=joblib.load("../model_classifiers/model"+sub+"_LR.pkl")
     predicted = model.predict(predict_data)
     return predicted
-    
-    
-    
-    
-    
-    
 
 def test_label(target, idx):
     label = []
@@ -56,37 +51,10 @@ def test_label(target, idx):
             label.append(str(0))
     return np.array(label)
 
-# def test_train():
-#     data, target = Preprocess.read_train_data()
-#     data = Preprocess.solve_data(data)
-#     Preprocess.save_tokenlization_result(data, target)
-#     Preprocess.vectword()
-#     data, target = TrainData.load()
-#     cls = NaiveBayesian()
-#     cls = cls.fit(data, target)
-#     joblib.dump(cls, './model/NaiveBayesian.pkl')
-
-# def test_predict(inputtxt):
-#     data, target = Preprocess.read_train_data()
-#     inputtxt = inputtxt.strip()
-#     data.append(inputtxt)
-#     data = Preprocess.solve_data(data)
-#     Preprocess.save_tokenlization_result(data, target)
-#     Preprocess.vectword()
-#     data, target = TrainData.load()
-#     _path = "./model/NaiveBayesian.pkl"
-#     cls = joblib.load(_path)
-#     res = cls.predict(data[-1])
-#     return res
-
 def save_tokenlization_result(data, file_path='./data/tags_token_results'):
     with codecs.open(file_path, 'w', 'utf-8') as f:
         for x in data:
             f.write(' '.join(x) + '\n')
-
-
-
-
 
 
 def getScore(input_word):
@@ -105,31 +73,19 @@ def getScore(input_word):
         predict1 = model.predict(t)
         print(predict1)
         
-#    word=[]
-#    print(data1)
-#    for x in data1:
-#        word.append(' '.join(x))
-#    print(type(word))
-#    if not word[-1]: word.pop()
-#    t = [Counter(d) for d in word]  # 每一行为一个短信， 值就是TF
-#    v = DictVectorizer()
-#    t = v.fit_transform(t)  # 稀疏矩阵表示sparse matrix,词编好号
-#    print(t)
-   
-
 
 if __name__ == '__main__':
-#    inputtxt = input("请输入你的评论：")
-#    getScore(inputtxt)
     sub=['power', 'price', 'interior', 'configuration', 'safety', 'appearance', 'handling', 'fuel', 'space', 'comfort']
     data, target = Preprocess.read_train_data()
     for item in range(0, 10):
         label = test_label(target, item)
         Preprocess.save_tokenlization_result_target(label, item)
+
+    #content = sys.argv[1]
+    #algorithm_type = sys.argv[2]
+
     while True:
         inputtxt = input("请输入你的评论：")
-#        getScore(inputtxt)
-#        处理数据
         data, target = Preprocess.read_train_data()
         inputtxt = inputtxt.strip()
         data.append(inputtxt)
@@ -153,6 +109,5 @@ if __name__ == '__main__':
                 score.append(0)
         print(res)
         print(score)
-#            res.append(res_data)
         
         
