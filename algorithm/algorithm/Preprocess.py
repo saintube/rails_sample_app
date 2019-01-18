@@ -13,10 +13,68 @@
 # import lib
 import jieba
 import codecs
+import csv
 import TrainData
 from collections import Counter
 from sklearn.feature_extraction import DictVectorizer
 
+
+def read_data(subject):
+   if subject=='price':
+       subject='价格'
+   elif subject=='setting':
+       subject='配置'
+   elif subject=='interior':
+       subject='内饰'
+   elif subject=='power':
+       subject='动力'
+   elif subject=='comfort':
+       subject='舒适性'
+   elif subject=='safety':
+       subject='安全性'
+   elif subject=='appearance':
+       subject='外观'
+   elif subject=='handling':
+       subject='操控'
+   elif subject=='fuel':
+       subject='油耗'
+   elif subject=='space':
+       subject='空间'
+   data=[]
+   target=[]
+   csv_reader = csv.reader(open('../data/train.csv', encoding='utf-8'))
+   for row in csv_reader:
+       if row[2]=='价格':
+           data.append(row[1])
+           target.append(row[3])
+       elif row[2]=='配置':
+           data.append(row[1])
+           target.append(row[3])
+       elif row[2]=='内饰':
+           data.append(row[1])
+           target.append(row[3])
+       elif row[2]=='动力':
+           data.append(row[1])
+           target.append(row[3])
+       elif row[2]=='舒适性':
+           data.append(row[1])
+           target.append(row[3])
+       elif row[2]=='安全性':
+           data.append(row[1])
+           target.append(row[3])
+       elif row[2]=='外观':
+           data.append(row[1])
+           target.append(row[3])
+       elif row[2]=='操控':
+           data.append(row[1])
+           target.append(row[3])
+       elif row[2]=='油耗':
+           data.append(row[1])
+           target.append(row[3])
+       elif row[2]=='空间':
+           data.append(row[1])
+           target.append(row[3])
+   return data, target
 
 def read_train_data():
     """
@@ -72,7 +130,7 @@ def vectword():
     4.对文本序列化数据建立词向量矩阵
     :return:
     """
-    with codecs.open('./data/tags_token_results', 'r', 'utf-8') as f:
+    with codecs.open("./data/tags_token_results", 'r', 'utf-8') as f:
         data = [line.strip().split() for line in f.read().split('\n')]
         if not data[-1]:
             data.pop()
@@ -82,3 +140,14 @@ def vectword():
         # 稀疏矩阵表示sparse matrix,词编好号
         t = v.fit_transform(t)
         TrainData.save(t)
+def vectword_score(filename,file_save):
+    with codecs.open(filename, 'r', 'utf-8') as f:
+        data = [line.strip().split() for line in f.read().split('\n')]
+        if not data[-1]:
+            data.pop()
+        # 每一行为一个短信，值就是TF
+        t = [Counter(d) for d in data]
+        v = DictVectorizer()
+        # 稀疏矩阵表示sparse matrix,词编好号
+        t = v.fit_transform(t)
+        TrainData.save(t,file_save)
