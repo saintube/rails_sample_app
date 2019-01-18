@@ -86,6 +86,9 @@ if __name__ == '__main__':
     #algorithm_type = sys.argv[2]
     #algorithm_type表示需要选用算法的id
 
+    #此处填上你的算法，分别对应着algorithm的下标
+    algorithms = []
+
     inputtxt = input("请输入你的评论：")
     data, target = Preprocess.read_train_data()
     inputtxt = inputtxt.strip()
