@@ -1,105 +1,274 @@
+
 <% provide(:title, @car.carname) %>
+
 <div class="container">
+
     <div class="col-md-4">
+
       <aside class="row">
+
         <section class="car_info">
+
         <div class="container-fluid">
+
     	<div class="panel panel-danger">
+
         <div class="panel-heading">
+
           <h1>
+
             <%= @car.carname %>
+
           </h1>
-          <h4>
-            <%= @car.description %>
-          </h4>
-          
+
         </div>
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" 
+                href="#collapseOne">
+               车型介绍
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <%= @car.description %>
+            </div>
+        </div>
+    </div>
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" 
+                href="#collapseFour">
+         查看图片
+                </a>
+            </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse">
+            <div class="panel-body">
+                Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred 
+                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice 
+                lomo.
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(function () { $('#collapseFour').collapse({
+        toggle: false
+    })});
+    $(function () { $('#collapseOne').collapse('hide')});
+</script>
         <div class="btn-group" role="group" aria-label="...">
 
+
+
           <% if logged_in? && current_user.admin? %>
+
             <button type="button" class="btn btn-default">
+
             <%= link_to "编辑车型", edit_car_path(@car.id) %><br>
+
             </button>
+
             <button type="button" class="btn btn-default">
+
             <%= link_to "删除车型", @car, method: :delete, data: { confirm: "确定删除?" } %><br>
+
             </button>
+
           <% end %>
+
         </div>
+
         </div>
-        
-        
+
+      
+        </div>
+
+<button type="button" class="btn btn-primary" data-toggle="collapse" 
+		data-target="#demo">
+	模型评分查看（点此折叠展开）
+</button>
+
+<div id="demo" class="collapse in">
+<div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <span class="sr-only">40% Complete (success)</span>
+                     40% 模型一
+                  </div>
         </div>
         <div class="progress">
                   <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
                     <span class="sr-only">40% Complete (success)</span>
                      40% 模型一
                   </div>
-                </div>
-        </section>
-        
-      </aside>
-      <!-- Split button -->
-        <div class="btn-group">
-          <button type="button" class="btn btn-danger">模型选择</button>
-          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a href="#">model 0</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">model 1</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">model 2</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">model 3</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">model 3</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">model 3</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">model 3</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">model 3</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">model 3</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">model 3</a></li>
-            
-          </ul>
         </div>
-            
-       <% if logged_in? %>
+        <div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <span class="sr-only">40% Complete (success)</span>
+                     40% 模型一
+                  </div>
+        </div>
+        <div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <span class="sr-only">40% Complete (success)</span>
+                     40% 模型一
+                  </div>
+        </div>
+        <div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <span class="sr-only">40% Complete (success)</span>
+                     40% 模型一
+                  </div>
+        </div>
+        <div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <span class="sr-only">40% Complete (success)</span>
+                     40% 模型一
+                  </div>
+        </div>
+        <div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <span class="sr-only">40% Complete (success)</span>
+                     40% 模型一
+                  </div>
+        </div>
+        <div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <span class="sr-only">40% Complete (success)</span>
+                     40% 模型一
+                  </div>
+        </div>
+        <div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <span class="sr-only">40% Complete (success)</span>
+                     40% 模型一
+                  </div>
+        </div>
+        <div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <span class="sr-only">40% Complete (success)</span>
+                     40% 模型一
+                  </div>
+        </div>
+</div>
+
+</body>
+</html>
+
+        
+
+        </section>
+
+        
+
+      </aside>
+
+      <!-- Split button -->
+
+       
+
+  
+
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">添加车评</button>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"          ><%= current_user.name %></h4>
+            </div>
+            <div class="modal-body">
+               <% if logged_in? %>
         <div class="row">
          <h3>
-          <%= current_user.name %>:
+
          </h3>
          </div>
         <section class="comment_form">
           <%= render 'shared/comment_form' %>
         </section>
       <% end %>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 
     </div>
 
 
+
+
+
       <div class="col-md-8">
 
+
+
         <div class="container-fluid">
-    	<div class="panel panel-danger">
+
+    	<div class="panel panel-default">
+
         <div class="panel-heading">
-       <% if @car.comments.any? %>
-         <h3>车评 (<%= @car.comments.count %>)</h3>
+
+<ul class="nav nav-tabs">
+	<li class="active"><a href="#"> <% if @car.comments.any? %>
+
+         车评 (<%= @car.comments.count %>)
+</a></li>
+
+	<li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+			选择模型进行评分（当前默认模型1） <span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a href="#">模型1</a></li>
+			<li><a href="#">模型1</a></li>
+			<li><a href="#">模型1</a></li>
+			<li><a href="#">模型1</a></li>
+			<li><a href="#">模型1</a></li>
+			<li><a href="#">模型1</a></li>
+			<li><a href="#">模型1</a></li>
+			<li><a href="#">模型1</a></li>
+			<li><a href="#">模型1</a></li>
+			<li class="divider"></li>
+			<li><a href="#">分离的链接</a></li>
+		</ul>
+	</li>
+</ul>
+      
          </div>
+
+
 
          <ol class="comments">
+
            <%= render @comments %>
+
          </ol>
+
          <%= paginate @comments %>
+
        <% end %>
+
          </div>
+
          </div>
+
       </div>
+
       
 
+
+
 </div>
+
+
+
+
+
