@@ -4,11 +4,15 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.build(comment_params)
-    # TO-DO: 车评计算更新
+    # 车评计算更新
     @comment.sentiment_value = 50
     if @comment.save
       # 发布成功，先增量更新车型属性，再跳转
+      # 利用算法模块的FindTheme_helper()得到车评的十个主题评分
       @car = Car.find_by_id(comment_params[:car_id])
+      # subject_values, comment_score = FindTheme_helper(@comment.content, comment_params[:option])
+      # TO-DO: 修改helper使得除了返回主题分也返回计算好的综合分
+      # @comment.update_atrribute(:sentiment_value, comment_score)
       if @car.comments.count <= 1
         @car.update_attribute(:score, @comment.sentiment_value)
       else
@@ -19,6 +23,7 @@ class CommentsController < ApplicationController
       flash[:success] = "车评已创建!"
       redirect_to comments_url
     else
+      # 发布失败
       flash[:danger] = "车评创建失败，请检查内容是否过长或过短"
       redirect_to car_url(comment_params[:car_id])
     end
@@ -47,6 +52,7 @@ class CommentsController < ApplicationController
   private
 
     def comment_params
+      # 获取三个参数：车评内容，车型id（隐式），算法选项
       params.require(:comment).permit(:content, :car_id)
     end
 
