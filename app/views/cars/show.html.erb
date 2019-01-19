@@ -1,36 +1,119 @@
 <% provide(:title, @car.carname) %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="car_info">
-      <h1>
-        <%= @car.carname %>
-      </h1>
-      <h4>
-        <%= @car.description %>
-      </h4>
-      <% if logged_in? && current_user.admin? %>
-        <%= link_to "编辑车型", edit_car_path(@car.id) %><br>
-        <%= link_to "删除车型", @car, method: :delete, data: { confirm: "确定删除?" } %><br>
+<div class="container">
+    <div class="col-md-4">
+      <aside class="row">
+        <section class="car_info">
+        <div class="container-fluid">
+    	<div class="panel panel-danger">
+        <div class="panel-heading">
+          <h1>
+            <%= @car.carname %>
+          </h1>
+          <h4>
+            <%= @car.description %>
+          </h4>
+          
+        </div>
+        <div class="btn-group" role="group" aria-label="...">
+
+          <% if logged_in? && current_user.admin? %>
+            <button type="button" class="btn btn-default">
+            <%= link_to "编辑车型", edit_car_path(@car.id) %><br>
+            </button>
+            <button type="button" class="btn btn-default">
+            <%= link_to "删除车型", @car, method: :delete, data: { confirm: "确定删除?" } %><br>
+            </button>
+          <% end %>
+        </div>
+        </div>
+        
+        
+        </div>
+        <div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <span class="sr-only">40% Complete (success)</span>
+                     40% 模型一
+                  </div>
+                </div>
+        </section>
+        
+      </aside>
+      <!-- Split button -->
+        <div class="btn-group">
+          <button type="button" class="btn btn-danger">模型选择</button>
+          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="#">model 0</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">model 1</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">model 2</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">model 3</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">model 3</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">model 3</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">model 3</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">model 3</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">model 3</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">model 3</a></li>
+            
+          </ul>
+        </div>
+      <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Action <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </div>
+            
+       <% if logged_in? %>
+        <div class="row">
+         <h3>
+          <%= current_user.name %>:
+         </h3>
+         </div>
+        <section class="comment_form">
+          <%= render 'shared/comment_form' %>
+        </section>
       <% end %>
-    </section>
-  </aside>
-<% if logged_in? %>
-  <div class="col-md-4">
-    <h3>
-      <%= current_user.name %>:
-    </h3>
-    <section class="comment_form">
-      <%= render 'shared/comment_form' %>
-    </section>
-  </div>
-<% end %>
-  <div class="col-md-8">
-    <% if @car.comments.any? %>
-      <h3>车评 (<%= @car.comments.count %>)</h3>
-      <ol class="comments">
-        <%= render @comments %>
-      </ol>
-      <%= paginate @comments %>
-    <% end %>
-  </div>
+
+    </div>
+
+
+      <div class="col-md-8">
+
+        <div class="container-fluid">
+    	<div class="panel panel-danger">
+        <div class="panel-heading">
+       <% if @car.comments.any? %>
+         <h3>车评 (<%= @car.comments.count %>)</h3>
+         </div>
+
+         <ol class="comments">
+           <%= render @comments %>
+         </ol>
+         <%= paginate @comments %>
+       <% end %>
+         </div>
+         </div>
+      </div>
+      
+
 </div>
+
+
