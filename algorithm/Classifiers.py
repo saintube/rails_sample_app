@@ -121,7 +121,7 @@ if '__main__' == __name__:
         print(test_y)
     
         
-        test_classifiers = ['LR','GBDT']
+        test_classifiers = ['DT']
         #test_classifiers = ['SVM']
     #    test_classifiers = ['MultinomialNB','BernoulliNB']
         classifiers = { 
