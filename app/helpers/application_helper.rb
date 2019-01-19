@@ -12,7 +12,7 @@ module ApplicationHelper
     end
   end
   
-    # 返回评论的主题情感信息
+  # 返回评论的主题情感信息
   def getThemeGrade(content, algorithm_type)
 		bcinfo = Array.new(10);
 		cmd = "python3 ../../algorithm/algorithm/FindTheme.py #{content} #{algorithm_type}";
