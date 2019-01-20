@@ -1,6 +1,40 @@
+require 'open3'
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
+  
+  # 返回评论的主题情感信息
+  def getThemeGrade(content, algorithm_type)
+		bcinfo = Array.new(10);
+		cmd = "python3 ../algorithm/algorithm/FindTheme.py #{content} #{algorithm_type}";
+		Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
+			while line = stdout.gets
+				bcinfo.push(line);
+			end
+		end
+		puts bcinfo;
+  end
+  
+  # 计算数组的均值，忽略nil
+  def get_subjects(subject_values)
+    if subject_values.length == 0
+      return 0
+    end
+    sum = 0
+    count = 0
+    for value in subject_values
+      if value != nil
+        sum += value
+        count += 1
+      end
+    end
+    if count == 0
+      return 0
+    else
+      return sum / count
+    end
+  end
   
   private
   

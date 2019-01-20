@@ -7,6 +7,26 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'csv'
 
+# 计算数组的均值，忽略nil
+def get_subjects(subject_values)
+  if subject_values.length == 0
+    return 0
+  end
+  sum = 0
+  count = 0
+  for value in subject_values
+    if value != nil && value >= 0 
+      sum += value
+      count += 1
+    end
+  end
+  if count == 0
+    return 0
+  else
+    return sum / count
+  end
+end
+
 User.create!(name:  "Example User",
              email: "example@railstutorial.org",
              password:              "foobar",
@@ -33,7 +53,12 @@ Car.create!(carname: "Tiguan", description: "Volkswagen Tiguan", score: 50)
   car = Car.first
   user = User.first
   sentiment_value = 50
-  Comment.create!(content: content, car: car, user: user, sentiment_value: sentiment_value)
+  Comment.create!(content: content, car: car, user: user, sentiment_value: sentiment_value, \
+                      power: -1, price: -1, \
+                      interior: -1, configure: -1, \
+                      safety: -1, appearance: -1, \
+                      control: -1, consumption: -1, \
+                      space: -1, comfort: -1)
 end
 
 10.times do |n|
@@ -41,7 +66,12 @@ end
   car = Car.last
   user = User.last
   sentiment_value = 50
-  Comment.create!(content: content, car: car, user: user, sentiment_value: sentiment_value)
+  Comment.create!(content: content, car: car, user: user, sentiment_value: sentiment_value, \
+                      power: -1, price: -1, \
+                      interior: -1, configure: -1, \
+                      safety: -1, appearance: -1, \
+                      control: -1, consumption: -1, \
+                      space: -1, comfort: -1)
 end
 
 models = []
@@ -116,12 +146,46 @@ CSV.foreach('data_processing/seeds.csv', headers: true) do |row|
   end
   models.push(formatted_row)
 end
+
 car_score = 0
+power_values = []
+price_values = []
+interior_values = []
+configure_values = []
+safety_values = []
+appearance_values = []
+control_values = []
+consumption_values = []
+space_values = []
+comfort_values = []
+=begin
+subject_values = []
+subject_values = [power_values, price_values, interior_values, configure_values, \
+                  safety_values, appearance_values, control_values, consumption_values, \
+                  space_values, comfort_values]
+subject_values.push(m['power'], m['price'], \
+                  m['interior'], m['configure'], \
+                  m['safety'], m['appearance'], \
+                  m['control'], m['consumption'], \
+                  m['space'], m['comfort'])
+=end
 for m in models
   car = Car.last
   user = User.first
   sentiment_value = 0
   sentiment_count = 0
+  
+  power_values.push(m['power'])
+  price_values.push(m['price'])
+  interior_values.push(m['interior'])
+  configure_values.push(m['configure'])
+  safety_values.push(m['safety'])
+  appearance_values.push(m['appearance'])
+  control_values.push(m['control'])
+  consumption_values.push(m['consumption'])
+  space_values.push(m['space'])
+  comfort_values.push(m['comfort'])
+  
   for attrs in m.values
     if attrs.to_i == attrs
       if attrs != -1
@@ -141,4 +205,26 @@ for m in models
                   space: m['space'], comfort: m['comfort'])
 end
 car_score /= models.length
-Car.last.update_attribute(:score, car_score)
+power = get_subjects(power_values)
+price = get_subjects(price_values)
+interior = get_subjects(interior_values)
+configure = get_subjects(configure_values)
+safety = get_subjects(safety_values)
+appearance = get_subjects(appearance_values)
+control = get_subjects(control_values)
+consumption = get_subjects(consumption_values)
+space = get_subjects(space_values)
+comfort = get_subjects(comfort_values)
+car_attributes = Hash[:score => car_score, \
+                  :power => power, \
+                  :price => price, \
+                  :interior => interior, \
+                  :configure => configure, \
+                  :safety => safety, \
+                  :appearance => appearance, \
+                  :control => control, \
+                  :consumption => consumption, \
+                  :space => space, \
+                  :comfort => comfort]
+puts car_attributes
+Car.last.update_attributes(car_attributes)
