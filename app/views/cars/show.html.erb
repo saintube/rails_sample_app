@@ -181,11 +181,11 @@ $(function () { $('#collapseFour').collapse({
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <% if logged_in? %>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel"          ><%= current_user.name %></h4>
             </div>
             <div class="modal-body">
-               <% if logged_in? %>
         <div class="row">
          <h3>
 
