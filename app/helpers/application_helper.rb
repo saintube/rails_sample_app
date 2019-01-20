@@ -1,3 +1,5 @@
+require 'open3'
+
 module ApplicationHelper
 
   # rendering the complete title according to the page info
@@ -10,4 +12,5 @@ module ApplicationHelper
     end
   end
   
+
 end
