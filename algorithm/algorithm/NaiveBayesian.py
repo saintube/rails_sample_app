@@ -31,15 +31,9 @@ class NaiveBayesian(sklearn.base.BaseEstimator):
         smoothed_fc = feature_count + self.alpha
         smoothed_cc = smoothed_fc.sum(axis=1)
         self.feature_log_prob = (np.log(smoothed_fc) - np.log(smoothed_cc.reshape(-1, 1)))
-        # self.class_log_prior = np.zeros(2) - np.log(2)
         self.class_log_prior = np.log(class_count / sum(class_count))
         return self
 
     def predict(self, X):
-        #print("________")
-        # print(np.shape(X))
-        # print(np.shape(self.feature_log_prob.T))
         jll = safe_sparse_dot(X, self.feature_log_prob.T) + self.class_log_prior
-        #print(jll)
-        #print("________")
         return self.classes[np.argmax(jll, axis=1)]
