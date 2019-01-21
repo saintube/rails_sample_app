@@ -18,7 +18,6 @@ import jieba
 from collections import Counter
 from NaiveBayesian import NaiveBayesian
 import numpy as np
-import sys 
 from sklearn.externals import joblib
 from sklearn.feature_extraction import DictVectorizer
 
@@ -116,11 +115,7 @@ def appInterface(inputtxt,m):
             score.append(predict_score(sub[item],classifiers[m]))
         else:
             score.append(-1)
-    for item in score:
-        print(item)
-    # colors = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    # for item in colors:
-    #     print(item)
+    print(score)
     
 
 def test_label(target, idx):
@@ -156,16 +151,6 @@ def getScore(input_word):
 
 if __name__ == '__main__':
     #inputtxt = input("请输入你的评论:")
-    #algorithm_type = input("请输入选择算法类型:")
-    #print(1)
-    inputtxt = sys.argv[1]
-    algorithm_type = sys.argv[2]
-    algorithm_type= int(algorithm_type)
-    #print(algorithm_type)
-    #print(inputtxt)
-    # colors = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    # for item in colors:
-    #     print(item)
-    appInterface(inputtxt, algorithm_type)
     
+    appInterface(inputtxt,1)
 
