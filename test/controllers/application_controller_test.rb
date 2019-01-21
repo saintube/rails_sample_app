@@ -1,22 +1,18 @@
-require 'open3'
+require 'test_helper'
 
-class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-  include SessionsHelper
-  
-  # 返回评论的主题情感信息
-  def getThemeGrade(content, algorithm_type)
-		bcinfo = Array.new(10);
-		cmd = "python3 ../algorithm/algorithm/FindTheme.py #{content} #{algorithm_type}";
-		Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
-			while line = stdout.gets
-				bcinfo.push(line);
-			end
-		end
-		puts bcinfo;
+class CommentsControllerTest < ActionDispatch::IntegrationTest; ApplicationController
+
+  def setup
+    @user = users(:michael)
+    @car = cars(:regal)
+    @comment = comments(:regal_comment)
+    ApplicationController.class_eval do
+      define_method :verify_rucaptcha? do |captcha|
+        true
+      end
+    end
   end
-  
-  # 计算数组的均值，忽略nil
+
   def get_subjects(subject_values)
     if subject_values.length == 0
       return -1
@@ -106,28 +102,32 @@ class ApplicationController < ActionController::Base
                   :comfort => comfort]
     return car_attributes
   end
-  
-  private
-  
-    # 前置过滤器
 
-    # 确保用户已登录
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "请先登录!"
-        redirect_to login_url
-      end
-    end
+  test "should return correct scores" do
+    init_subjects = Hash[:power => -1, \
+                  	:price => -1, \
+                  	:interior => -1, \
+                  	:configure => -1, \
+                  	:safety => -1, \
+                  	:appearance => -1, \
+                  	:control => -1, \
+                  	:consumption => -1, \
+                  	:space => -1, \
+                  	:comfort => -1]
+    @comment.update_attributes(init_subjects)
+    new_scores = calculate_scores([@comment])
+    correct_scores = Hash[:score => 50, \
+			                  :power => -1, \
+                        :price => -1, \
+                        :interior => -1, \
+                        :configure => -1, \
+                        :safety => -1, \
+                        :appearance => -1, \
+                        :control => -1, \
+                        :consumption => -1, \
+                        :space => -1, \
+                        :comfort => -1]
+    assert_equal new_scores, correct_scores
+  end
 
-    # 确保是正确的用户
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
-    end
-
-    # 确保是管理员
-    def admin_user
-      redirect_to(root_url) unless current_user.admin?
-    end
 end
