@@ -62,8 +62,8 @@ def decision_tree_classifier(train_x, train_y):
     return model 
 
 
-def predict(idx):
-    data, target = TrainData.load(idx)
+def predict():
+    data, target = TrainData.load()
     cls = NaiveBayesian()
     train_data = data[:-1]
     predict_data = data[-1]
@@ -98,9 +98,7 @@ def predict_score(sub,model):
 def appInterface(inputtxt,m):
     sub=['power', 'price', 'interior', 'configuration', 'safety', 'appearance', 'handling', 'fuel', 'space', 'comfort']
     data, target = Preprocess.read_train_data()
-    for item in range(0, 10):
-        label = test_label(target, item)
-        Preprocess.save_tokenlization_result_target(label, item)
+    Preprocess.save_tokenlization_result_target(target)
     classifiers = ['KNN','LR','RF','DT','GBDT']
     data, target = Preprocess.read_train_data()
     inputtxt = inputtxt.strip()
@@ -108,23 +106,18 @@ def appInterface(inputtxt,m):
     data = Preprocess.solve_data(data)
     Preprocess.save_tokenlization_result_data(data)
     Preprocess.vectword()
-    score=[]
-    for item in range(0,10):
-        res_data = predict(item)
-        if res_data==1:
-            d,t=Preprocess.read_data(sub[item])
-            d.append(inputtxt)
-            d=Preprocess.solve_data(d)
-            Preprocess.save_tokenlization_result_data(data,last_path+'/data/tags_'+sub[item]+'_results')
-            Preprocess.vectword_score(last_path+'/data/tags_'+sub[item]+'_results',last_path+'/model/'+sub[item]+'_train_data.pkl')
-            score.append(predict_score(sub[item],classifiers[m]))
-        else:
-            score.append(-1)
+    score=[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+    res_data = predict()
+    idx = res_data[0]
+    d,t=Preprocess.read_data(sub[idx])
+    d.append(inputtxt)
+    d=Preprocess.solve_data(d)
+    Preprocess.save_tokenlization_result_data(data,last_path+'/data/tags_'+sub[idx]+'_results')
+    Preprocess.vectword_score(last_path+'/data/tags_'+sub[idx]+'_results',last_path+'/model/'+sub[idx]+'_train_data.pkl')
+    final_data = predict_score(sub[idx],classifiers[m])
+    score[idx] = final_data
     for item in score:
         print(item)
-    # colors = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    # for item in colors:
-    #     print(item)
     
 
 def test_label(target, idx):
@@ -159,17 +152,9 @@ def getScore(input_word):
         print(predict1)
 
 if __name__ == '__main__':
-    # inputtxt = input("请输入你的评论:")
-    # algorithm_type = input("请输入选择算法类型:")
-    #print(1)
     inputtxt = sys.argv[1]
     algorithm_type = sys.argv[2]
     algorithm_type= int(algorithm_type)
-    #print(algorithm_type)
-    #print(inputtxt)
-    # colors = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    # for item in colors:
-    #     print(item)
     appInterface(inputtxt, algorithm_type)
     
 

@@ -117,14 +117,14 @@ def save_tokenlization_result_data(data, file_path=dir_path+"/data/tags_token_re
         for x in data:
             f.write(' '.join(x) + '\n')
 
-def save_tokenlization_result_target(target, idx, file_path=dir_path+"/data/tags_token_results"):
+def save_tokenlization_result_target(target,file_path=dir_path+"/data/tags_token_results"):
     """
     3.对提取的target数据进行序列化保存
     :param target:
     :param file_path:
     :return:
     """
-    with open(file_path+'_tag'+str(idx), 'w') as f:
+    with open(file_path+'_tag', 'w') as f:
         for x in target:
             f.write(x + '\n')
 
