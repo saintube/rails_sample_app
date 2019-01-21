@@ -13,11 +13,14 @@
 # import lib
 import jieba
 import codecs
+import os
 import csv
 import TrainData
 from collections import Counter
 from sklearn.feature_extraction import DictVectorizer
 
+
+dir_path = os.path.dirname(os.path.abspath(__file__))
 
 def read_data(subject):
    if subject=='price':
@@ -42,7 +45,7 @@ def read_data(subject):
        subject='空间'
    data=[]
    target=[]
-   csv_reader = csv.reader(open('../data/train.csv', encoding='utf-8'))
+   csv_reader = csv.reader(open(dir_path+'/data/train.csv', encoding='utf-8'))
    for row in csv_reader:
        if row[2]=='价格':
            data.append(row[1])
@@ -81,7 +84,7 @@ def read_train_data():
     1.函数读入输入数据.txt文件
     :return:评论主题和label标签
     """
-    input_file = "./data/train_data.txt"
+    input_file = dir_path+"/data/train_data.txt"
     target = []
     data = []
     with codecs.open(input_file, "r", "utf-8") as f:
@@ -102,7 +105,7 @@ def solve_data(txtdata):
         data.append(jieba.lcut(item_txt))
     return data
 
-def save_tokenlization_result_data(data, file_path="./data/tags_token_results"):
+def save_tokenlization_result_data(data, file_path=dir_path+"/data/tags_token_results"):
     """
     3.对提取的data数据进行序列化保存
     :param data:
@@ -114,7 +117,7 @@ def save_tokenlization_result_data(data, file_path="./data/tags_token_results"):
         for x in data:
             f.write(' '.join(x) + '\n')
 
-def save_tokenlization_result_target(target, idx, file_path="./data/tags_token_results"):
+def save_tokenlization_result_target(target, idx, file_path=dir_path+"/data/tags_token_results"):
     """
     3.对提取的target数据进行序列化保存
     :param target:
@@ -130,7 +133,7 @@ def vectword():
     4.对文本序列化数据建立词向量矩阵
     :return:
     """
-    with codecs.open("./data/tags_token_results", 'r', 'utf-8') as f:
+    with codecs.open(dir_path+"/data/tags_token_results", 'r', 'utf-8') as f:
         data = [line.strip().split() for line in f.read().split('\n')]
         if not data[-1]:
             data.pop()

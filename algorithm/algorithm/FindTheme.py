@@ -19,8 +19,12 @@ from collections import Counter
 from NaiveBayesian import NaiveBayesian
 import numpy as np
 import sys 
+import os
 from sklearn.externals import joblib
 from sklearn.feature_extraction import DictVectorizer
+
+last_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+dir_path = os.path.dirname(os.path.abspath(__file__))
 
 # Logistic Regression Classifier  
 def logistic_regression_classifier(train_x, train_y):  
@@ -69,8 +73,8 @@ def predict(idx):
 
 
 def predict_score(sub,model):
-    save_price_path='../data/tags_'+sub+'_results'
-    data, target = TrainData.load_model(save_price_path + '_tag','../model/'+sub+'_train_data.pkl')
+    save_price_path=last_path+'/data/tags_'+sub+'_results'
+    data, target = TrainData.load_model(save_price_path + '_tag',last_path+'/model/'+sub+'_train_data.pkl')
     train_data = data[:-1]
     predict_data = data[-1]
     if model=='KNN':
@@ -111,8 +115,8 @@ def appInterface(inputtxt,m):
             d,t=Preprocess.read_data(sub[item])
             d.append(inputtxt)
             d=Preprocess.solve_data(d)
-            Preprocess.save_tokenlization_result_data(data,'../data/tags_'+sub[item]+'_results')
-            Preprocess.vectword_score('../data/tags_'+sub[item]+'_results','../model/'+sub[item]+'_train_data.pkl')
+            Preprocess.save_tokenlization_result_data(data,last_path+'/data/tags_'+sub[item]+'_results')
+            Preprocess.vectword_score(last_path+'/data/tags_'+sub[item]+'_results',last_path+'/model/'+sub[item]+'_train_data.pkl')
             score.append(predict_score(sub[item],classifiers[m]))
         else:
             score.append(-1)
@@ -133,7 +137,7 @@ def test_label(target, idx):
             label.append(str(0))
     return np.array(label)
 
-def save_tokenlization_result(data, file_path='./data/tags_token_results'):
+def save_tokenlization_result(data, file_path=dir_path+'/data/tags_token_results'):
     with codecs.open(file_path, 'w', 'utf-8') as f:
         for x in data:
             f.write(' '.join(x) + '\n')
@@ -141,22 +145,22 @@ def save_tokenlization_result(data, file_path='./data/tags_token_results'):
 def getScore(input_word):
     data = []
     data.append(jieba.lcut(input_word))
-    save_tokenlization_result(data,'./data/results')
+    save_tokenlization_result(data,dir_path+'/data/results')
 
-    with codecs.open('./data/results', 'r', 'utf-8') as f:
+    with codecs.open(dir_path+'/data/results', 'r', 'utf-8') as f:
         data = [line.strip().split() for line in f.read().split('\n')]
         print(type(data))
         if not data[-1]: data.pop()
         t = [Counter(d) for d in data]  # 每一行为一个短信， 值就是TF
         v = DictVectorizer()
         t = v.fit_transform(t)  # 稀疏矩阵表示sparse matrix,词编好号
-        model=joblib.load("../model_classifiers/modelprice_LR.pkl")
+        model=joblib.load(last_path+"/model_classifiers/modelprice_LR.pkl")
         predict1 = model.predict(t)
         print(predict1)
 
 if __name__ == '__main__':
-    #inputtxt = input("请输入你的评论:")
-    #algorithm_type = input("请输入选择算法类型:")
+    # inputtxt = input("请输入你的评论:")
+    # algorithm_type = input("请输入选择算法类型:")
     #print(1)
     inputtxt = sys.argv[1]
     algorithm_type = sys.argv[2]
