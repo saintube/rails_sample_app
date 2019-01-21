@@ -19,11 +19,11 @@ class CommentsController < ApplicationController
                   	:space => -1, \
                   	:comfort => -1]
       @comment.update_attributes(init_subjects)
-      # 利用算法模块的FindTheme_helper()得到车评的十个主题评分
+      # 利用算法模块的FindTheme_helper()得到车评的十个主题评分和综合分
       @car = Car.find_by_id(comment_params[:car_id])
-      # subject_values, comment_score = FindTheme_helper(@comment.content, comment_params[:option])
-      # TO-DO: 修改helper使得除了返回主题分也返回计算好的综合分
-      # @comment.update_atrribute(:sentiment_value, comment_score)
+      # TO-DO: 使用表单传递的算法选项
+      comment_scores = evaluate_content(@comment.content, 1)
+      @comment.update_attributes(comment_scores)
       new_scores = calculate_scores(@car.comments)
       @car.update_attributes(new_scores)
       flash[:success] = "车评已创建!"

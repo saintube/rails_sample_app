@@ -4,16 +4,18 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
   
-  # 返回评论的主题情感信息
+  # 返回评论的主题得分数组
   def getThemeGrade(content, algorithm_type)
-		bcinfo = Array.new(10);
-		cmd = "python3 ../algorithm/algorithm/FindTheme.py #{content} #{algorithm_type}";
+		bcinfo = []
+		app_dir = Rails.root.to_s
+		cmd = "python3 #{app_dir}/algorithm/algorithm/FindTheme.py #{content} #{algorithm_type}"
 		Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
 			while line = stdout.gets
-				bcinfo.push(line);
+		    line = line.chomp.to_i
+		    bcinfo.push(line)
 			end
 		end
-		puts bcinfo;
+		return bcinfo
   end
   
   # 计算数组的均值，忽略nil
@@ -34,6 +36,29 @@ class ApplicationController < ActionController::Base
     else
       return sum / count
     end
+  end
+  
+  # 返回评论的主题得分和综合评分的参数哈希
+  def evaluate_content(content, algorithm_type)
+    subjects_arr = getThemeGrade(content, algorithm_type)
+    sentiment_value = get_subjects(subjects_arr)
+    if sentiment_value < 0
+      sentiment_value = 50
+    else
+      sentiment_value *= 50
+    end
+    scores = Hash[  :sentiment_value => sentiment_value, \
+                    :power => subjects_arr[0], \
+                  	:price => subjects_arr[1], \
+                  	:interior => subjects_arr[2], \
+                  	:configure => subjects_arr[3], \
+                  	:safety => subjects_arr[4], \
+                  	:appearance => subjects_arr[5], \
+                  	:control => subjects_arr[6], \
+                  	:consumption => subjects_arr[7], \
+                  	:space => subjects_arr[8], \
+                  	:comfort => subjects_arr[9]]
+    return scores
   end
   
   def calculate_scores(coms)
