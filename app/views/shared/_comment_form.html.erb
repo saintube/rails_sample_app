@@ -1,8 +1,53 @@
+
 <%= form_for(@comment) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+  <div class="btn-group" role="group" aria-label="...">
+    
+     <button type="button" class="btn btn-primary">    
+      <p style="font-size:15px">
+      <%= radio_button_tag(:model, "0") %>
+      <br>
+      <%= label_tag(:model_0, "模型0") %>
+      </p>
+      </button>
+
+      <button type="button" class="btn btn-danger">
+      <p style="font-size:15px">
+      <%= radio_button_tag(:model, "1") %>
+      <br>
+      <%= label_tag(:model_1, "模型1") %>
+      </p>
+      </button>
+      
+      <button type="button" class="btn btn-success">
+      <p style="font-size:15px">
+      <%= radio_button_tag(:model, "2") %>
+      <br>
+      <%= label_tag(:model_2, "模型2") %>
+      </p>
+      </button>
+      
+      <button type="button" class="btn btn-info">
+      <p style="font-size:15px">
+      <%= radio_button_tag(:model, "3") %>
+      <br>
+      <%= label_tag(:model_3, "模型3") %>
+      </p>
+      </button>
+      
+      <button type="button" class="btn btn-warning">
+      <p style="font-size:15px">
+      <%= radio_button_tag(:model, "4") %>
+      <br>
+      <%= label_tag(:model_4, "模型4") %>
+      </button>
+      </p>
+  </div>
+  <h3>
+  </h3>
   <div class="field">
     <%= f.text_area :content, placeholder: "发布新车评..." %>
   </div>
   <%= f.hidden_field :car_id, :value => @car.id %>
   <%= f.submit "发布", class: "btn btn-primary" %>
-<% end %>
+      <% end %>
