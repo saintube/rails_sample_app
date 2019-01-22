@@ -176,7 +176,11 @@ $(function () { $('#collapseFour').collapse({
 
       <!-- Split button -->
 
+<% if logged_in? %>
 <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">添加车评</button>
+<% else %>
+<font size="3" color="red">请在登陆后发布车评</font>
+<% end %>
 
 
 <!-- 模态框（Modal） -->
