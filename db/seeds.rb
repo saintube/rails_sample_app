@@ -226,5 +226,4 @@ car_attributes = Hash[:score => car_score, \
                   :consumption => consumption, \
                   :space => space, \
                   :comfort => comfort]
-puts car_attributes
 Car.last.update_attributes(car_attributes)

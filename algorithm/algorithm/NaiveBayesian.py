@@ -22,24 +22,18 @@ class NaiveBayesian(sklearn.base.BaseEstimator):
         labelbin = LabelBinarizer()
         Y = labelbin.fit_transform(y)
         self.classes = labelbin.classes_
-        Y = np.concatenate((1 - Y, Y), axis=1).astype(np.float64)
+        #Y = np.concatenate((1 - Y, Y), axis=1).astype(np.float64)
 
-        class_count = np.zeros(2, dtype=np.float64)
-        feature_count = np.zeros((2, n), dtype=np.float64)
+        class_count = np.zeros(10, dtype=np.float64)
+        feature_count = np.zeros((10, n), dtype=np.float64)
         feature_count += safe_sparse_dot(Y.T, X)  # count frequency by y.T * X
         class_count += Y.sum(axis=0)
         smoothed_fc = feature_count + self.alpha
         smoothed_cc = smoothed_fc.sum(axis=1)
         self.feature_log_prob = (np.log(smoothed_fc) - np.log(smoothed_cc.reshape(-1, 1)))
-        # self.class_log_prior = np.zeros(2) - np.log(2)
         self.class_log_prior = np.log(class_count / sum(class_count))
         return self
 
     def predict(self, X):
-        #print("________")
-        # print(np.shape(X))
-        # print(np.shape(self.feature_log_prob.T))
         jll = safe_sparse_dot(X, self.feature_log_prob.T) + self.class_log_prior
-        #print(jll)
-        #print("________")
         return self.classes[np.argmax(jll, axis=1)]

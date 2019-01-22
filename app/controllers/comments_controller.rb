@@ -8,18 +8,24 @@ class CommentsController < ApplicationController
     @comment.sentiment_value = 50
     if @comment.save
       # 发布成功，先增量更新车型属性，再跳转
-      # 利用算法模块的FindTheme_helper()得到车评的十个主题评分
+      init_subjects = Hash[:power => -1, \
+                  	:price => -1, \
+                  	:interior => -1, \
+                  	:configure => -1, \
+                  	:safety => -1, \
+                  	:appearance => -1, \
+                  	:control => -1, \
+                  	:consumption => -1, \
+                  	:space => -1, \
+                  	:comfort => -1]
+      @comment.update_attributes(init_subjects)
+      # 利用算法模块的FindTheme_helper()得到车评的十个主题评分和综合分
       @car = Car.find_by_id(comment_params[:car_id])
-      # subject_values, comment_score = FindTheme_helper(@comment.content, comment_params[:option])
-      # TO-DO: 修改helper使得除了返回主题分也返回计算好的综合分
-      # @comment.update_atrribute(:sentiment_value, comment_score)
-      if @car.comments.count <= 1
-        @car.update_attribute(:score, @comment.sentiment_value)
-      else
-        tscore = @car.score
-        tcount = @car.comments.count - 1
-        @car.update_attribute(:score, ((tscore * tcount + @comment.sentiment_value) / (tcount + 1)))
-      end
+      # TO-DO: 使用表单传递的算法选项
+      comment_scores = evaluate_content(@comment.content, 1)
+      @comment.update_attributes(comment_scores)
+      new_scores = calculate_scores(@car.comments)
+      @car.update_attributes(new_scores)
       flash[:success] = "车评已创建!"
       redirect_to comments_url
     else
@@ -32,15 +38,9 @@ class CommentsController < ApplicationController
   def destroy
     # 减量更新车型属性
     @car = Car.find_by_id(@comment.car_id)
-    tscore = @car.score
-    tcount = @car.comments.count
-    tvalue = @comment.sentiment_value
     @comment.destroy
-    if tcount <= 1
-      @car.update_attribute(:score, 50)
-    else
-      @car.update_attribute(:score, ((tscore * tcount - tvalue) / (tcount - 1)))
-    end
+    new_scores = calculate_scores(@car.comments)
+    @car.update_attributes(new_scores)
     flash[:success] = "车评已删除"
     redirect_to request.referrer || comments_url
   end

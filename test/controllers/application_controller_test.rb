@@ -1,24 +1,18 @@
-require 'open3'
+require 'test_helper'
 
-class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-  include SessionsHelper
-  
-  # 返回评论的主题得分数组
-  def getThemeGrade(content, algorithm_type)
-		bcinfo = []
-		app_dir = Rails.root.to_s
-		cmd = "python3 #{app_dir}/algorithm/algorithm/FindTheme.py #{content} #{algorithm_type}"
-		Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
-			while line = stdout.gets
-		    line = line.chomp.to_i
-		    bcinfo.push(line)
-			end
-		end
-		return bcinfo
+class CommentsControllerTest < ActionDispatch::IntegrationTest; ApplicationController
+
+  def setup
+    @user = users(:michael)
+    @car = cars(:regal)
+    @comment = comments(:regal_comment)
+    ApplicationController.class_eval do
+      define_method :verify_rucaptcha? do |captcha|
+        true
+      end
+    end
   end
-  
-  # 计算数组的均值，忽略nil
+
   def get_subjects(subject_values)
     if subject_values.length == 0
       return -1
@@ -36,29 +30,6 @@ class ApplicationController < ActionController::Base
     else
       return sum / count
     end
-  end
-  
-  # 返回评论的主题得分和综合评分的参数哈希
-  def evaluate_content(content, algorithm_type)
-    subjects_arr = getThemeGrade(content, algorithm_type)
-    sentiment_value = get_subjects(subjects_arr)
-    if sentiment_value < 0
-      sentiment_value = 50
-    else
-      sentiment_value *= 50
-    end
-    scores = Hash[  :sentiment_value => sentiment_value, \
-                    :power => subjects_arr[0], \
-                  	:price => subjects_arr[1], \
-                  	:interior => subjects_arr[2], \
-                  	:configure => subjects_arr[3], \
-                  	:safety => subjects_arr[4], \
-                  	:appearance => subjects_arr[5], \
-                  	:control => subjects_arr[6], \
-                  	:consumption => subjects_arr[7], \
-                  	:space => subjects_arr[8], \
-                  	:comfort => subjects_arr[9]]
-    return scores
   end
   
   def calculate_scores(coms)
@@ -131,28 +102,32 @@ class ApplicationController < ActionController::Base
                   :comfort => comfort]
     return car_attributes
   end
-  
-  private
-  
-    # 前置过滤器
 
-    # 确保用户已登录
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "请先登录!"
-        redirect_to login_url
-      end
-    end
+  test "should return correct scores" do
+    init_subjects = Hash[:power => -1, \
+                  	:price => -1, \
+                  	:interior => -1, \
+                  	:configure => -1, \
+                  	:safety => -1, \
+                  	:appearance => -1, \
+                  	:control => -1, \
+                  	:consumption => -1, \
+                  	:space => -1, \
+                  	:comfort => -1]
+    @comment.update_attributes(init_subjects)
+    new_scores = calculate_scores([@comment])
+    correct_scores = Hash[:score => 50, \
+			                  :power => -1, \
+                        :price => -1, \
+                        :interior => -1, \
+                        :configure => -1, \
+                        :safety => -1, \
+                        :appearance => -1, \
+                        :control => -1, \
+                        :consumption => -1, \
+                        :space => -1, \
+                        :comfort => -1]
+    assert_equal new_scores, correct_scores
+  end
 
-    # 确保是正确的用户
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
-    end
-
-    # 确保是管理员
-    def admin_user
-      redirect_to(root_url) unless current_user.admin?
-    end
 end
