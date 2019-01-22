@@ -22,7 +22,8 @@ class CommentsController < ApplicationController
       # 利用算法模块的FindTheme_helper()得到车评的十个主题评分和综合分
       @car = Car.find_by_id(comment_params[:car_id])
       # TO-DO: 使用表单传递的算法选项
-      comment_scores = evaluate_content(@comment.content, 1)
+      algorithm_option = comment_params[:model].to_i
+      comment_scores = evaluate_content(@comment.content, algorithm_option)
       @comment.update_attributes(comment_scores)
       new_scores = calculate_scores(@car.comments)
       @car.update_attributes(new_scores)
@@ -53,7 +54,7 @@ class CommentsController < ApplicationController
 
     def comment_params
       # 获取三个参数：车评内容，车型id（隐式），算法选项
-      params.require(:comment).permit(:content, :car_id)
+      params.require(:comment).permit(:content, :car_id, :model)
     end
 
     def correct_user
