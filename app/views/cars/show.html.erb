@@ -1,4 +1,3 @@
-
 <% provide(:title, @car.carname) %>
 
 <div class="container">
@@ -50,9 +49,8 @@
         </div>
         <div id="collapseFour" class="panel-collapse collapse">
             <div class="panel-body">
-                <!--
-                <img src="/images/tiguan.jpg">
-                -->
+                <%= @car.carname %>
+                <img src="./tiguan.jpg">
             </div>
         </div>
     </div>
@@ -91,8 +89,8 @@ $(function () { $('#collapseFour').collapse({
         </div>
         
     <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-        60%
+      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= number_to_percentage((@car.score.to_i), precision: 5) %>">
+        总分：<%= @car.score %>/100
       </div>
     </div>
 
@@ -103,64 +101,64 @@ $(function () { $('#collapseFour').collapse({
 </button>
 
 <div id="demo" class="collapse in">
-<div class="progress">
-                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                    <span class="sr-only">40% Complete (success)</span>
-                     <%= @car.power %>动力
+        <div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"  style="width:<%= number_to_percentage(((@car.power.to_i + 1) * 0.3333333)*100, precision: 5)  %>" >
+                    <span class="sr-only" > 40% Complete (success)</span>
+                     动力:<%= @car.power.to_i + 1 %>/3
                   </div>
         </div>
         <div class="progress">
-                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"  style="width:<%= number_to_percentage(((@car.price.to_i + 1) * 0.3333333)*100, precision: 5)  %>">
                     <span class="sr-only">40% Complete (success)</span>
-                     <%= @car.price %>价格
+                     价格:<%= @car.price.to_i + 1 %>/3
                   </div>
         </div>
         <div class="progress">
-                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"  style="width:<%= number_to_percentage(((@car.interior.to_i + 1) * 0.3333333)*100, precision: 5)  %>">
                     <span class="sr-only">40% Complete (success)</span>
-                     <%= @car.interior %>内饰
+                     内饰:<%= @car.interior.to_i + 1 %>/3
                   </div>
         </div>
         <div class="progress">
-                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"  style="width:<%= number_to_percentage(((@car.configure.to_i + 1) * 0.3333333)*100, precision: 5)  %>">
                     <span class="sr-only">40% Complete (success)</span>
-                     <%= @car.configure %>配置
+                    配置:<%= @car.configure.to_i + 1 %>/3
                   </div>
         </div>
         <div class="progress">
-                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"  style="width:<%= number_to_percentage(((@car.safety.to_i + 1) * 0.3333333)*100, precision: 5)  %>">
                     <span class="sr-only">40% Complete (success)</span>
-                     <%= @car.safety %>安全性
+                     安全性:<%= @car.safety.to_i + 1 %>/3
                   </div>
         </div>
         <div class="progress">
-                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"  style="width:<%= number_to_percentage(((@car.appearance.to_i + 1) * 0.3333333)*100, precision: 5)  %>">
                     <span class="sr-only">40% Complete (success)</span>
-                     <%= @car.appearance %>外观
+                     外观:<%= @car.appearance.to_i + 1 %>/3
                   </div>
         </div>
         <div class="progress">
-                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"  style="width:<%= number_to_percentage(((@car.control.to_i + 1) * 0.3333333)*100, precision: 5)  %>">
                     <span class="sr-only">40% Complete (success)</span>
-                     <%= @car.control %>操控
+                     操控:<%= @car.control.to_i + 1 %>/3
                   </div>
         </div>
         <div class="progress">
-                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"  style="width:<%= number_to_percentage(((@car.consumption.to_i + 1) * 0.3333333)*100, precision: 5)  %>">
                     <span class="sr-only">40% Complete (success)</span>
-                     <%= @car.consumption %>油耗
+                     油耗:<%= @car.consumption.to_i + 1 %>/3
                   </div>
         </div>
         <div class="progress">
-                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"  style="width:<%= number_to_percentage(((@car.space.to_i + 1) * 0.3333333)*100, precision: 5)  %>">
                     <span class="sr-only">40% Complete (success)</span>
-                     <%= @car.space %>空间
+                     空间:<%= @car.space.to_i + 1 %>/3
                   </div>
         </div>
         <div class="progress">
-                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"  style="width:<%= number_to_percentage(((@car.comfort.to_i + 1) * 0.3333333)*100, precision: 5)  %>">
                     <span class="sr-only">40% Complete (success)</span>
-                     <%= @car.comfort %>舒适性
+                     舒适性:<%= @car.comfort.to_i + 1 %>/3
                   </div>
         </div>
 </div>
@@ -254,7 +252,6 @@ $(function () { $('#collapseFour').collapse({
 
 
 </div>
-
 
 
 
