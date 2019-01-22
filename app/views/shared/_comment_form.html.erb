@@ -7,7 +7,7 @@
       <p style="font-size:15px">
       <%= radio_button_tag(:model, "0") %>
       <br>
-      <%= label_tag(:model_0, "模型0") %>
+      <%= label_tag(:model_0, "逻辑回归") %>
       </p>
       </button>
 
@@ -15,7 +15,7 @@
       <p style="font-size:15px">
       <%= radio_button_tag(:model, "1") %>
       <br>
-      <%= label_tag(:model_1, "模型1") %>
+      <%= label_tag(:model_1, "k-NN") %>
       </p>
       </button>
       
@@ -23,7 +23,7 @@
       <p style="font-size:15px">
       <%= radio_button_tag(:model, "2") %>
       <br>
-      <%= label_tag(:model_2, "模型2") %>
+      <%= label_tag(:model_2, "随机森林") %>
       </p>
       </button>
       
@@ -31,7 +31,7 @@
       <p style="font-size:15px">
       <%= radio_button_tag(:model, "3") %>
       <br>
-      <%= label_tag(:model_3, "模型3") %>
+      <%= label_tag(:model_3, "决策树") %>
       </p>
       </button>
       
@@ -39,11 +39,12 @@
       <p style="font-size:15px">
       <%= radio_button_tag(:model, "4") %>
       <br>
-      <%= label_tag(:model_4, "模型4") %>
+      <%= label_tag(:model_4, "GBDT") %>
       </button>
       </p>
   </div>
   <h3>
+    <font size="2" color="red">* 点击发布按钮后，请等待约10秒钟的文本分析过程 *</font>
   </h3>
   <div class="field">
     <%= f.text_area :content, placeholder: "发布新车评..." %>
