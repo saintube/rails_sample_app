@@ -30,8 +30,8 @@ Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
 		bcinfo.push(line)
 	end
 end
-#sentiment_value = get_subjects(bcinfo)
-#puts sentiment_value
+sentiment_value = get_subjects(bcinfo)
+puts sentiment_value
 puts "subjects:"
 puts bcinfo.class
 puts bcinfo[0].class
