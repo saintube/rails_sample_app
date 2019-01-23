@@ -5,6 +5,12 @@ This application is based on
 Learn Web Development with Rails*](http://www.railstutorial.org/)
 by [Michael Hartl](http://www.michaelhartl.com/). And the final interpretation is owned by Team-431 from UCAS.
 
+## Requirements
+
+```
+Ruby 2.4 + Rails (>= 5.0)
+Python 3 (>= 3.4) + numpy, scipy, sklearn, jieba
+```
 
 ## Getting started
 
@@ -34,6 +40,7 @@ Finally, run the test suite to verify that everything is working correctly:
 
 ```
 $ rails test
+$ ruby env_test.rb
 ```
 
 If the test suite passes, you'll be ready to run the app in a Cloud9 workspace server:
