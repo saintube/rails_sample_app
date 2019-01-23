@@ -30,7 +30,7 @@ textarea {
   h1 {
     margin-bottom: 20px;
   }
-  background-image: url(<%= asset_path('Car.gif') %>);
+  background-image: url(asset-path('Car.gif', image));
   min-height: 500px;
 }
 
