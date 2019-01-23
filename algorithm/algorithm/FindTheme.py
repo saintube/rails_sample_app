@@ -61,33 +61,44 @@ def decision_tree_classifier(train_x, train_y):
     model.fit(train_x, train_y)  
     return model 
 
+def train_NBmodel(train_data,target):
+    model = NaiveBayesian()
+    model.fit(train_data, target)
+    TrainData.save(model,last_path+"/model_classifiers/model_NB.pkl")
+    return model
 
 def predict():
     data, target = TrainData.load()
-    cls = NaiveBayesian()
     train_data = data[:-1]
     predict_data = data[-1]
-    cls.fit(train_data, target)
-    predicted = cls.predict(predict_data)
+    try:
+        model=joblib.load(last_path+"/model_classifiers/model_NB.pkl")
+        predicted = model.predict(predict_data)
+    except:
+        model=train_NBmodel(train_data,target)
+        predicted = model.predict(predict_data)
     return predicted
 
-
-def predict_score(sub,model):
+def predict_score(sub,m):
     save_price_path=last_path+'/data/tags_'+sub+'_results'
     data, target = TrainData.load_model(save_price_path + '_tag',last_path+'/model/'+sub+'_train_data.pkl')
     train_data = data[:-1]
     predict_data = data[-1]
-    if model=='KNN':
-        model=knn_classifier(train_data,target)
-    elif model=='LR':
-        model=logistic_regression_classifier(train_data,target)
-    elif model=='RF':
-        model=random_forest_classifier(train_data,target)
-    elif model=='DT':
-        model=decision_tree_classifier(train_data,target)
-    else:
-        model=gradient_boosting_classifier(train_data,target)
-    predicted = model.predict(predict_data)
+    try:
+        model=joblib.load(last_path++"/model_classifiers/model"+sub+"_LR.pkl")
+        predicted = model.predict(predict_data)
+    except:
+        if m=='KNN':
+            model=knn_classifier(train_data,target)
+        elif m=='LR':
+            model=logistic_regression_classifier(train_data,target)
+        elif m=='RF':
+            model=random_forest_classifier(train_data,target)
+        elif m=='DT':
+            model=decision_tree_classifier(train_data,target)
+        else:
+            model=gradient_boosting_classifier(train_data,target)
+        predicted = model.predict(predict_data)
     return predicted[0]+1
     
 
@@ -100,7 +111,6 @@ def appInterface(inputtxt,m):
     data, target = Preprocess.read_train_data()
     Preprocess.save_tokenlization_result_target(target)
     classifiers = ['KNN','LR','RF','DT','GBDT']
-    data, target = Preprocess.read_train_data()
     inputtxt = inputtxt.strip()
     data.append(inputtxt)
     data = Preprocess.solve_data(data)
