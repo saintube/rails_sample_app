@@ -1,10 +1,6 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 require 'csv'
 
 # 计算数组的均值，忽略nil
@@ -158,17 +154,6 @@ control_values = []
 consumption_values = []
 space_values = []
 comfort_values = []
-=begin
-subject_values = []
-subject_values = [power_values, price_values, interior_values, configure_values, \
-                  safety_values, appearance_values, control_values, consumption_values, \
-                  space_values, comfort_values]
-subject_values.push(m['power'], m['price'], \
-                  m['interior'], m['configure'], \
-                  m['safety'], m['appearance'], \
-                  m['control'], m['consumption'], \
-                  m['space'], m['comfort'])
-=end
 for m in models
   car = Car.last
   user = User.first
