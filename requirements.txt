@@ -2,7 +2,7 @@ chardet==2.2.1
 colorama==0.2.5
 html5lib==0.999
 jieba==0.39
-numpy==1.9.0
+numpy==1.16.0
 pycurl==7.19.3
 requests==2.2.1
 scikit-learn==0.20.2
