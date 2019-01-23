@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CommentsControllerTest < ActionDispatch::IntegrationTest; ApplicationController
+class ApplicationControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:michael)
