@@ -85,7 +85,7 @@ def predict_score(sub,m):
     train_data = data[:-1]
     predict_data = data[-1]
     try:
-        model=joblib.load(last_path++"/model_classifiers/model"+sub+"_LR.pkl")
+        model=joblib.load(last_path+"/model_classifiers/model"+sub+"_LR.pkl")
         predicted = model.predict(predict_data)
     except:
         if m=='KNN':
